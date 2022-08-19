@@ -23,17 +23,20 @@ async def main():
     cell_size = winW / num_cells_x
 
 
-    initial_grid = np.zeros(shape=(num_cells_x, num_cells_y, 2)) 
+    # initial_grid = np.zeros(shape=(num_cells_x, num_cells_y, 2)) 
 
-    initial_grid[0:5, 0:5] = [[[0, 0], [0, 1], [1, 1], [0, 2], [0, 1]], [[0, 1], [0, 3], [0,4], [1,3], [
-        0,2]], [[0, 1], [1, 1], [1, 3], [1, 2], [0, 2]], [[0, 1], [0, 2], [0, 3], [0, 2], [0, 1]], [[0, 0], [0, 0], [0, 0], [0, 0], [0, 0]]]
+    # initial_grid[0:5, 0:5] = [[[0, 0], [0, 1], [1, 1], [0, 2], [0, 1]], [[0, 1], [0, 3], [0,4], [1,3], [
+    #    0,2]], [[0, 1], [1, 1], [1, 3], [1, 2], [0, 2]], [[0, 1], [0, 2], [0, 3], [0, 2], [0, 1]], [[0, 0], [0, 0], [0, 0], [0, 0], [0, 0]]]
 
-    game = Game(num_cells_x, num_cells_y, initial_grid)
+    game = Game(num_cells_x, num_cells_y) #, initial_grid)
 
     clock = pygame.time.Clock()
 
     play = False
+    next = False
+
     mouse_pos = []
+
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -48,14 +51,21 @@ async def main():
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_SPACE:
                     play = not play
+                if event.key == pygame.K_RIGHT:
+                    next = True
 
         text_surface = font.render("Playing", True, (255,255,255))
+        
         # initial mode
         if not play: 
             for p in mouse_pos:
                 game.toggle(int(p[0] / cell_size), int(p[1] // cell_size))
                 mouse_pos.remove(p)
             text_surface = font.render("Editing", True, (255,255,255))
+
+            if next:
+                game.iterate()
+                next = False
         # play mode
         else:
             game.iterate()
@@ -67,6 +77,7 @@ async def main():
         surf = pygame.surfarray.make_surface(grid)
         root.blit(surf, (0, 0))
         root.blit(text_surface, (0,0))
+
         pygame.display.update()
         await asyncio.sleep(0)
 
