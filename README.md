@@ -19,11 +19,11 @@ python main.py
 ``SPACE`` key to pause/play. When paused, left click to add cells 
 
 
-## Found Patters
+## Found Patterns
 > I can't guarantee that any of these has not been found before. But it's just cool to look at. I named them myself. Sorry if some oh-so-amazing mathematician named it before me. Apologies.
 
 ### Cocoon
 <img alt="Cocoon 8/18/22" src="./docs/patterns/cocoon.gif" width="300" height="300" />
 
-### Vortext
-<img alt="Vortext 8/19/22" src="./docs/patterns/vortex.gif" width="300" height="300" />
+### Vortex
+<img alt="Vortex 8/19/22" src="./docs/patterns/vortex.gif" width="300" height="300" />
