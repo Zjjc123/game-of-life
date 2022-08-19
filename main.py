@@ -50,7 +50,7 @@ async def main():
         # initial mode
         if not play: 
             for p in mouse_pos:
-                game.add(int(p[0] / cell_size), int(p[1] // cell_size))
+                game.toggle(int(p[0] / cell_size), int(p[1] // cell_size))
                 mouse_pos.remove(p)
 
         # play mode

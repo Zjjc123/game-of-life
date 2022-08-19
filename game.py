@@ -43,6 +43,20 @@ class Game:
             for j in range(y-1, y+2):
                 if i != x or j != y:
                     next_grid[i][j][1] += 1
+    
+    def remove(self, x, y):
+        self.grid[x][y][0] = 0
+        # update neighbors
+        for i in range(x-1, x+2):
+            for j in range(y-1, y+2):
+                if i != x or j != y:
+                    self.grid[i][j][1] -= 1
+
+    def toggle(self, x, y):
+        if self.grid[x][y][0] == 0:
+            self.add(x, y)
+        else:
+            self.remove(x, y)
 
     def get_grid(self):
         return self.grid[:, :, 0]
