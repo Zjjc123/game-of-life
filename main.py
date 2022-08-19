@@ -9,8 +9,10 @@ winW = 1000
 winH = 1000
 
 pygame.init()
+pygame.font.init()
 
 root = pygame.display.set_mode((winW, winH))
+font = pygame.font.SysFont("Arial", 30)
 
 pygame.display.set_caption("Conway's Game of Life")
 async def main():
@@ -47,12 +49,13 @@ async def main():
                 if event.key == pygame.K_SPACE:
                     play = not play
 
+        text_surface = font.render("Playing", True, (255,255,255))
         # initial mode
         if not play: 
             for p in mouse_pos:
                 game.toggle(int(p[0] / cell_size), int(p[1] // cell_size))
                 mouse_pos.remove(p)
-
+            text_surface = font.render("Editing", True, (255,255,255))
         # play mode
         else:
             game.iterate()
@@ -63,6 +66,7 @@ async def main():
 
         surf = pygame.surfarray.make_surface(grid)
         root.blit(surf, (0, 0))
+        root.blit(text_surface, (0,0))
         pygame.display.update()
         await asyncio.sleep(0)
 
