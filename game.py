@@ -1,6 +1,4 @@
-from re import S
 import numpy as np
-
 
 class Game:
     def __init__(self, x, y, initial=[]):
